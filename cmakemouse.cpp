@@ -7,7 +7,6 @@
 #include "CMakeMouse.h"
 using namespace std;
 
-
 static const int nt = 1;
 thread t;
 bool isStop = false;
