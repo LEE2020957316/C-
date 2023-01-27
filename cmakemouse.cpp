@@ -50,7 +50,7 @@ int ReadMouse(Mouse* mouse) {
 }
 
 
-// a demo derived from Mousecallback which prints out the coordinates.
+//Prints out the coordinates.
 void MyMouseCallback::hasData(int x, int y, bool left, bool middle, bool right) {
 	if (x == 0 && y == 0 && !left && !middle && !right)return;
 	cout << "x=" << x << "  y=" << y << endl;
@@ -64,8 +64,7 @@ void Mouse::start(){
 }
 void Mouse::stop(){
     isStop = true;
-	//t.detach();
-    //cout << "Mouse Listening thread exit." << endl;
+	//Mouse Listening thread exit;
 }
 
 int main()
