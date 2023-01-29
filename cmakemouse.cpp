@@ -85,7 +85,7 @@ int main()
             cin >> s2;
             if (s2 != '\0')break;
         }else{
-            //cout<<s2<<endl;
+		
         }
     }
 
