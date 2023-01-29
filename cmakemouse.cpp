@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include <thread>
-#include "CMakeMouse.h"
+#include "cmakemouse.h"
 using namespace std;
 
 static const int nt = 1;
