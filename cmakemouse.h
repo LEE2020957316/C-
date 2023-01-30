@@ -10,6 +10,7 @@ public:
 	void hasData(int x, int y, bool left, bool middle, bool right);
 };
 
+
 class Mouse {
 public:
 	int x;
