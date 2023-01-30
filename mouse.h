@@ -5,10 +5,6 @@ public:
 	virtual void hasData(int x, int y, bool left, bool middle, bool right) = 0;
 };
 
-struct MyMouseCallback : Mousecallback {
-public:
-	void hasData(int x, int y, bool left, bool middle, bool right);
-};
 
 class Mouse {
 public:
@@ -17,10 +13,14 @@ public:
 	bool left;
 	bool middle;
 	bool right;
+    	bool isStop; 
 public:
 	Mousecallback* mc;
 public:
+    	Mouse(/* args */) {}
+    	Mouse(bool isStop);
 	void registerCallback(Mousecallback* mc);
 	void start();
 	void stop();
+   	 ~Mouse() {}
 };
