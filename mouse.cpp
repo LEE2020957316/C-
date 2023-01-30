@@ -1,22 +1,32 @@
+#include "mouse.h"
 #include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>
 
 #include <iostream>
 #include <thread>
-#include "cmakemouse.h"
 using namespace std;
+
 
 static const int nt = 1;
 thread t;
-bool isStop = false;
+
+struct MyMouseCallback : Mousecallback {
+public:
+	void hasData(int x, int y, bool left, bool middle, bool right);
+};
+
+Mouse::Mouse(bool isStop){
+    this->isStop = false;
+}
+
 
 int ReadMouse(Mouse* mouse) {
     int fd, bytes;
     unsigned char data[3];
     const char* pDevice = "/dev/input/mice";
-  
-    fd = open(pDevice, O_RDWR);  // Open Mouse
+    // Open Mouse
+    fd = open(pDevice, O_RDWR);
     if (fd == -1)
     {
         printf("ERROR Opening %s\n", pDevice);
@@ -26,7 +36,7 @@ int ReadMouse(Mouse* mouse) {
     signed char x, y;
     while (1)
     {
-        if(isStop){
+        if(mouse->isStop){
             cout << "Mouse Listening thread exit." << endl;
             return 0;
         }
@@ -49,30 +59,33 @@ int ReadMouse(Mouse* mouse) {
     }
 }
 
-
-//Prints out the coordinates.
+// a demo derived from Mousecallback which prints out the coordinates.
 void MyMouseCallback::hasData(int x, int y, bool left, bool middle, bool right) {
 	if (x == 0 && y == 0 && !left && !middle && !right)return;
 	cout << "x=" << x << "  y=" << y << endl;
 	cout << "left=" << left << "  middle="<< middle << "  right=" << right << endl;
 }
+
 void Mouse::registerCallback(Mousecallback* mc){
 	this->mc = mc;
 }
 void Mouse::start(){
 	t = thread(ReadMouse, this);
 }
+
 void Mouse::stop(){
-    isStop = true;
-	//Mouse Listening thread exit;
+    this->isStop = true;
+	
 }
 
 int main()
 {
 	Mousecallback* callback = new MyMouseCallback;
-	Mouse mouse;
+	Mouse mouse(false);
 	mouse.registerCallback(callback);
 	mouse.start();
+
+
 	t.detach();
 
 
@@ -85,7 +98,7 @@ int main()
             cin >> s2;
             if (s2 != '\0')break;
         }else{
-		
+            
         }
     }
 
