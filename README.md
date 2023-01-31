@@ -1,3 +1,4 @@
 # This is for the C++ task !
 A demo derived from Mousecallback which prints out the coordinates !
-![272909568231781633](https://user-images.githubusercontent.com/60438997/215367425-b667385d-418e-4ae9-ab2b-bdd0d5948b2c.jpg)
+![50fd1e70-60e8-48ec-8d7a-fdeac739c6ed](https://user-images.githubusercontent.com/60438997/215628706-66f1e38a-bcec-42b4-847c-43953439aaa7.jpg)
+
