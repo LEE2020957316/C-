@@ -1,6 +1,6 @@
 PROJECT (CMakemouse)
 
-SET(SRC_LIST mouse.cpp)
+SET(SRC_LIST mouse.cpp main.cpp)
 
 MESSAGE(STATUS "This is BINARY dir " ${HELLO_BINARY_DIR})
 
