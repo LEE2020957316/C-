@@ -8,7 +8,7 @@
 using namespace std;
 
 
-void Mouse::ReadMouse(Mouse* mouse) {
+void Mouse::ReadMouse() {
     int fd, bytes;
     unsigned char data[3];
     const char* pDevice = "/dev/input/mice";
@@ -21,7 +21,7 @@ void Mouse::ReadMouse(Mouse* mouse) {
     }
     int left, middle, right;
     signed char x, y;
-    while (!(mouse->isStop))
+    while (!(isStop))
     {
 	    // Read Mouse     
 	    bytes = read(fd, data, sizeof(data));
@@ -32,12 +32,12 @@ void Mouse::ReadMouse(Mouse* mouse) {
 		    middle = data[0] & 0x4;
 		    x = data[1];
 		    y = data[2];
-		    mouse->x = x;
-		    mouse->y = y;
-		    mouse->left = left > 0 ? true : false;
-		    mouse->middle = middle > 0 ? true : false;
-		    mouse->right = right > 0 ? true : false;
-		    mouse->mc->hasData(x,y,left,middle,right);
+		    x = x;
+		    y = y;
+		    left = left > 0 ? true : false;
+		    middle = middle > 0 ? true : false;
+		    right = right > 0 ? true : false;
+		    mc->hasData(x,y,left,middle,right);
 	    }
     }
 }
@@ -52,7 +52,7 @@ void Mouse::registerCallback(Mousecallback* _mc){
 }
 
 void Mouse::start(){
-	t = thread([this](Mouse* m){ReadMouse(m);}, this);
+	t = thread([this](){ReadMouse();});
 }
 
 void Mouse::stop(){

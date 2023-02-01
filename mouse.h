@@ -16,7 +16,7 @@ private:
 	bool right;
     	bool isStop;
 	std::thread t;
-	void ReadMouse(Mouse* mouse);
+	void ReadMouse();
 public:
 	Mousecallback* mc;
 public:
