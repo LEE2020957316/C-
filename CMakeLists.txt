@@ -1,9 +1,8 @@
-PROJECT (CMakemouse)
+PROJECT (mousecallback)
+
+cmake_minimum_required(VERSION 3.10.0)
+set (CMAKE_CXX_STANDARD 11)
 
 SET(SRC_LIST mouse.cpp main.cpp)
-
-MESSAGE(STATUS "This is BINARY dir " ${HELLO_BINARY_DIR})
-
-MESSAGE(STATUS "This is SOURCE dir "${HELLO_SOURCE_DIR})
 
 ADD_EXECUTABLE(CMouse ${SRC_LIST})
