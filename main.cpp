@@ -24,7 +24,7 @@ int main()
 	mouse.registerCallback(&callback);
 	mouse.start();
 
-	cout << "Mouse Listening started. Press any key to stop." << endl;
+	cout << "Mouse Listening started. Press <return> to stop." << endl;
 
 	getc(stdin);
 

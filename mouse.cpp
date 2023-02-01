@@ -50,6 +50,5 @@ void Mouse::start(){
 
 void Mouse::stop(){
 	running = false;
-	close(fd);
 	t.join();
 }
