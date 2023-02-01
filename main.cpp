@@ -7,8 +7,6 @@
 #include <thread>
 using namespace std;
 
-
-
 int main()
 {
 	Mousecallback* callback = new MyMouseCallback;
