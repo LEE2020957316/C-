@@ -7,9 +7,6 @@
 #include <thread>
 using namespace std;
 
-static const int nt = 1;
-thread t;
-
 
 
 int main()
@@ -19,7 +16,6 @@ int main()
 	mouse.registerCallback(callback);
 	mouse.start();
 
-	t.detach();
 
 
 	cout << "Mouse Listening started. input 'q' to stop Listening thread." << endl;
