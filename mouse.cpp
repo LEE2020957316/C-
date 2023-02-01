@@ -9,8 +9,6 @@ using namespace std;
 
 
 void Mouse::ReadMouse() {
-    int fd, bytes;
-    unsigned char data[3];
     const char* pDevice = "/dev/input/mice";
     // Open Mouse
     fd = open(pDevice, O_RDWR);
@@ -21,30 +19,25 @@ void Mouse::ReadMouse() {
     }
     int left, middle, right;
     signed char x, y;
-    while (!(isStop))
+    running = true;
+    while (running)
     {
-	    // Read Mouse     
-	    bytes = read(fd, data, sizeof(data));
+	    unsigned char data[3];
+	    int bytes = read(fd, data, sizeof(data));
 	    if (bytes > 0)
 	    {
-		    left = data[0] & 0x1;
-		    right = data[0] & 0x2;
-		    middle = data[0] & 0x4;
-		    x = data[1];
-		    y = data[2];
-		    x = x;
-		    y = y;
-		    left = left > 0 ? true : false;
-		    middle = middle > 0 ? true : false;
-		    right = right > 0 ? true : false;
+		    int vleft = data[0] & 0x1;
+		    int vright = data[0] & 0x2;
+		    int vmiddle = data[0] & 0x4;
+		    int x = data[1];
+		    int y = data[2];
+		    bool left = vleft > 0;
+		    bool middle = vmiddle > 0;
+		    bool right = vright > 0;
 		    mc->hasData(x,y,left,middle,right);
 	    }
     }
-}
-
-Mouse::Mouse(bool isStop){
-	isStop = false;
-    
+    close(fd);
 }
 
 void Mouse::registerCallback(Mousecallback* _mc){
@@ -56,6 +49,7 @@ void Mouse::start(){
 }
 
 void Mouse::stop(){
-	isStop = true;
+	running = false;
+	close(fd);
 	t.join();
 }

@@ -20,13 +20,13 @@ public:
 int main()
 {
 	MyMouseCallback callback;
-	Mouse mouse(false);
+	Mouse mouse;
 	mouse.registerCallback(&callback);
 	mouse.start();
 
-	cout << "Mouse Listening started. input 'q' to stop Listening thread." << endl;
+	cout << "Mouse Listening started. Press any key to stop." << endl;
 
-	while (getc(stdin) != 'q');
+	getc(stdin);
 
 	mouse.stop();
 	cout << "Main thread exit." << endl;

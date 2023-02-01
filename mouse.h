@@ -9,15 +9,10 @@ public:
 
 class Mouse {
 private:
-	int x;
-	int y;
-	bool left;
-	bool middle;
-	bool right;
-    	bool isStop;
+	int fd = 0;
+	bool running;
 	std::thread t;
 	void ReadMouse();
-public:
 	Mousecallback* mc;
 public:
     	Mouse(/* args */) {}
@@ -25,5 +20,4 @@ public:
 	void registerCallback(Mousecallback* mc);
 	void start();
 	void stop();
-   	 ~Mouse() {}
 };
