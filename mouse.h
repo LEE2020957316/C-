@@ -1,4 +1,6 @@
+
 #include <iostream>
+#include <thread>
 
 struct Mousecallback {
 public:
@@ -10,6 +12,7 @@ public:
 	void hasData(int x, int y, bool left, bool middle, bool right);
 };
 
+
 class Mouse {
 public:
 	int x;
@@ -17,7 +20,8 @@ public:
 	bool left;
 	bool middle;
 	bool right;
-    	bool isStop; 
+    	bool isStop;
+    	 std::thread t; 
 public:
 	Mousecallback* mc;
 public:
