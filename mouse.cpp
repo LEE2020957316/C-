@@ -7,9 +7,6 @@
 #include <thread>
 using namespace std;
 
-static const int nt = 1;
-//extern thread t;
-
 
 int ReadMouse(Mouse* mouse) {
     int fd, bytes;
@@ -73,5 +70,8 @@ void Mouse::stop(){
     this->isStop = true;
 	
 }
+
+
+
 
 
