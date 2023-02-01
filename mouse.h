@@ -15,8 +15,6 @@ private:
 	void ReadMouse();
 	Mousecallback* mc;
 public:
-    	Mouse(/* args */) {}
-    	Mouse(bool isStop);
 	void registerCallback(Mousecallback* mc);
 	void start();
 	void stop();
