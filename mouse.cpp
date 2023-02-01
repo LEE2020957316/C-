@@ -9,7 +9,7 @@ using namespace std;
 
 
 static const int nt = 1;
-thread t;
+extern thread t;
 
 
 Mouse::Mouse(bool isStop){
