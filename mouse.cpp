@@ -7,14 +7,8 @@
 #include <thread>
 using namespace std;
 
-
 static const int nt = 1;
-extern thread t;
-
-
-Mouse::Mouse(bool isStop){
-    this->isStop = false;
-}
+//extern thread t;
 
 
 int ReadMouse(Mouse* mouse) {
@@ -55,7 +49,12 @@ int ReadMouse(Mouse* mouse) {
     }
 }
 
-// a demo derived from Mousecallback which prints out the coordinates.
+Mouse::Mouse(bool isStop){
+    this->isStop = false;
+    
+}
+
+//prints out the coordinates.
 void MyMouseCallback::hasData(int x, int y, bool left, bool middle, bool right) {
 	if (x == 0 && y == 0 && !left && !middle && !right)return;
 	cout << "x=" << x << "  y=" << y << endl;
@@ -65,8 +64,9 @@ void MyMouseCallback::hasData(int x, int y, bool left, bool middle, bool right) 
 void Mouse::registerCallback(Mousecallback* mc){
 	this->mc = mc;
 }
+
 void Mouse::start(){
-	t = thread(ReadMouse, this);
+	this->t = thread(ReadMouse, this);
 }
 
 void Mouse::stop(){
