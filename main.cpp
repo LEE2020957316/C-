@@ -24,11 +24,11 @@ int main()
 	mouse.registerCallback(&callback);
 	mouse.start();
 
-	cout << "Mouse Listening started. Press <return> to stop." << endl;
+	cout << "Mouse Listening started." << endl;
 
-	getc(stdin);
+	sleep(5);
 
 	mouse.stop();
-	cout << "Main thread exit." << endl;
+	cout << "Main thread finished." << endl;
 	return 0;
 }
