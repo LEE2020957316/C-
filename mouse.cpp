@@ -45,7 +45,7 @@ void Mouse::registerCallback(Mousecallback* _mc){
 }
 
 void Mouse::start(){
-	t = thread([this](){ReadMouse();});
+	t = thread(&Mouse::ReadMouse,this);
 }
 
 void Mouse::stop(){
