@@ -34,14 +34,16 @@ void Mouse::ReadMouse() {
 		    bool left = vleft > 0;
 		    bool middle = vmiddle > 0;
 		    bool right = vright > 0;
-		    mc->hasData(x,y,left,middle,right);
+			for(auto mc: mouseCallbacks) {
+		    	mc->hasData(x,y,left,middle,right);
+			}
 	    }
     }
     close(fd);
 }
 
-void Mouse::registerCallback(Mousecallback* _mc){
-	mc = _mc;
+void Mouse::registerCallback(Mousecallback* mc){
+	mouseCallbacks.push_back(mc);
 }
 
 void Mouse::start(){

@@ -1,5 +1,16 @@
-# This is for the C++ task !
-A demo derived from Mousecallback which prints out the coordinates!
-Using cmake file to build it.
+# Callback demo
 
+Do
 
+```
+cmake .
+make
+```
+
+the run it with
+
+```
+sudo ./CMouse
+```
+
+End the program by pressing Enter.

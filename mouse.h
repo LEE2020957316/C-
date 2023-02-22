@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include <thread>
+#include <vector>
 
 struct Mousecallback {
 public:
@@ -13,7 +14,7 @@ private:
 	bool running;
 	std::thread t;
 	void ReadMouse();
-	Mousecallback* mc;
+	std::vector<Mousecallback*> mouseCallbacks;
 public:
 	void registerCallback(Mousecallback* mc);
 	void start();
