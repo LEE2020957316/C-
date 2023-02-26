@@ -7,29 +7,28 @@
 #include <thread>
 using namespace std;
 
+
+struct MyMouseCallback : Mousecallback {
+public:
+	void hasData(int x, int y, bool left, bool middle, bool right) {
+		if (x == 0 && y == 0 && !left && !middle && !right)return;
+		cout << "x=" << x << "  y=" << y << endl;
+		cout << "left=" << left << "  middle="<< middle << "  right=" << right << endl;
+	}
+};
+
 int main()
 {
-	Mousecallback* callback = new MyMouseCallback;
-	Mouse mouse(false);
-	mouse.registerCallback(callback);
+	MyMouseCallback callback;
+	Mouse mouse;
+	mouse.registerCallback(&callback);
 	mouse.start();
 
+	cout << "Mouse Listening started." << endl;
 
+	sleep(5);
 
-	cout << "Mouse Listening started. input 'q' to stop Listening thread." << endl;
-    char s1,s2;
-    while (cin >> s1) {
-        if (s1 == 'q' || s1 == 'Q') {
-            mouse.stop();
-            cout << "input any char to exit Main thread..." << endl;
-            cin >> s2;
-            if (s2 != '\0')break;
-        }else{
-            
-        }
-    }
-
-
-    cout << "Main thread exit." << endl;
+	mouse.stop();
+	cout << "Main thread finished." << endl;
 	return 0;
 }

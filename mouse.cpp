@@ -8,70 +8,49 @@
 using namespace std;
 
 
-int ReadMouse(Mouse* mouse) {
-    int fd, bytes;
-    unsigned char data[3];
+void Mouse::ReadMouse() {
     const char* pDevice = "/dev/input/mice";
     // Open Mouse
     fd = open(pDevice, O_RDWR);
     if (fd == -1)
     {
         printf("ERROR Opening %s\n", pDevice);
-        return -1;
+        return;
     }
     int left, middle, right;
     signed char x, y;
-    while (1)
+    running = true;
+    while (running)
     {
-        if(mouse->isStop){
-            cout << "Mouse Listening thread exit." << endl;
-            return 0;
-        }
-        // Read Mouse     
-        bytes = read(fd, data, sizeof(data));
-        if (bytes > 0)
-        {
-            left = data[0] & 0x1;
-            right = data[0] & 0x2;
-            middle = data[0] & 0x4;
-            x = data[1];
-            y = data[2];
-            mouse->x = x;
-            mouse->y = y;
-            mouse->left = left > 0 ? true : false;
-            mouse->middle = middle > 0 ? true : false;
-            mouse->right = right > 0 ? true : false;
-            mouse->mc->hasData(x,y,left,middle,right);
-        }
+	    unsigned char data[3];
+	    int bytes = read(fd, data, sizeof(data));
+	    if (bytes > 0)
+	    {
+		    int vleft = data[0] & 0x1;
+		    int vright = data[0] & 0x2;
+		    int vmiddle = data[0] & 0x4;
+		    int x = data[1];
+		    int y = data[2];
+		    bool left = vleft > 0;
+		    bool middle = vmiddle > 0;
+		    bool right = vright > 0;
+			for(auto mc: mouseCallbacks) {
+		    	mc->hasData(x,y,left,middle,right);
+			}
+	    }
     }
-}
-
-Mouse::Mouse(bool isStop){
-    this->isStop = false;
-    
-}
-
-//prints out the coordinates.
-void MyMouseCallback::hasData(int x, int y, bool left, bool middle, bool right) {
-	if (x == 0 && y == 0 && !left && !middle && !right)return;
-	cout << "x=" << x << "  y=" << y << endl;
-	cout << "left=" << left << "  middle="<< middle << "  right=" << right << endl;
+    close(fd);
 }
 
 void Mouse::registerCallback(Mousecallback* mc){
-	this->mc = mc;
+	mouseCallbacks.push_back(mc);
 }
 
 void Mouse::start(){
-	this->t = thread(ReadMouse, this);
+	t = thread(&Mouse::ReadMouse,this);
 }
 
 void Mouse::stop(){
-    this->isStop = true;
-	
+	running = false;
+	t.join();
 }
-
-
-
-
-
